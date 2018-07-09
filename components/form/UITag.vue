@@ -60,7 +60,7 @@
     },
     methods: {
       handleClose(tag) {
-        this.internalValue = [...this.internalValue].splice(this.internalValue.indexOf(tag), 1);
+        this.internalValue = [...this.internalValue].filter(t => t !== tag);
       },
 
       showInput() {

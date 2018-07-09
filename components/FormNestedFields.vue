@@ -23,6 +23,7 @@
       value: { type: Array, default: () => [] },
       name: { type: String },
       fields: { type: Array, default: () => [] },
+      show: { type: Object }
     },
     components: {
       FormField
