@@ -24,15 +24,15 @@
     data() {
 
       const fields = [
-        { name: 'user.name', ui: 'el-input', },
-        { name: 'label2', ui: 'ui-select', default: [], options: [{ label: 'a', value: 1 }, { label: 'b', value: 2 }], attr: { multiple: true,  } },
-        { name: 'label3', ui: 'el-date-picker', },
-        { name: 'label4', ui: 'el-switch', default: false },
-        { name: 'label5', ui: 'ui-checkbox-group', default: [], options: [{ label: 'a', value: 1 }, { label: 'b', value: 2 }] },
-        { name: 'label6', ui: 'ui-radio-group', default: '', options: [{ label: 'a', value: 1 }, { label: 'b', value: 2 }] },
-        { name: 'label7', ui: 'el-input', type: 'textarea', hide: { name: 'label4', value: false } },
-        { name: 'label8', ui: 'ui-upload', default: [], attr: { action: '' } },
-        { name: 'label9', ui: 'ui-tag', default: ['tag1', 'tag2'], show: { name: 'label6', value: 2 } },
+        { name: 'user.name', label: '用戶名稱', ui: 'el-input' },
+        { name: 'label2', label: '性別', ui: 'ui-select', default: [], options: [{ label: '男生', value: 'M' }, { label: '女生', value: 'F' }], attr: { multiple: false,  } },
+        { name: 'label3', label: '生日', ui: 'el-date-picker', },
+        { name: 'label4', label: '是否有養過寵物', ui: 'el-switch', default: false },
+        { name: 'label5', ui: 'ui-checkbox-group', default: [], options: [{ label: '貓', value: 'cat' }, { label: '狗', value: 'dog' }] },
+        { name: 'label6', ui: 'el-input', label: '養寵物的心得', type: 'textarea', hide: { name: 'label4', value: false } },
+        { name: 'label7', ui: 'ui-upload', default: [], attr: { action: '' } },
+        { name: 'label8', ui: 'ui-radio-group', label: '顯示Tag', default: '', options: [{ label: '不使用', value: false }, { label: '使用', value: true }] },
+        { name: 'label9', ui: 'ui-tag', default: ['tag1', 'tag2'], show: { name: 'label8', value: true } },
         { 
           name: 'slider', 
           fields: [

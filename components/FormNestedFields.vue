@@ -1,6 +1,12 @@
 <template>
   <div>
-    <el-card v-for="(v, i) in internalValue" :key="i">
+    <el-card v-for="(v, i) in internalValue" :key="i"  shadow="never">
+      <div slot="header" class="clearfix">
+        <span>{{`${name} ${i+1}`}}</span>
+        <el-button v-if="internalValue.length > 1" style="float: right; padding: 4px" type="text" @click="onRemove(i)">
+          <i class="el-icon-delete"></i>
+        </el-button>
+      </div>
       <el-form-item v-for="(field, ii) in fields" :key="`${i}_${ii}`" :label="field.label || field.name">
         <FormField 
           :value="internalValue[i][field.name]" 
@@ -41,6 +47,11 @@
     methods: {
       onUpdate(path, value) {
         this.$emit('update', set([ ...this.value ], path, value));
+      },
+      onRemove(index) {
+        const value = [ ...this.value ]; 
+        value.splice(index, 1)
+        this.$emit('update', value);
       },
       getDefaultValue() {
         return getModelFromFields(this.fields);

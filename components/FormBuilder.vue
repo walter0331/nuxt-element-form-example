@@ -50,21 +50,6 @@
       FormNestedFields,
       FormField
     },
-    // watch: {
-    //   value: function (newValue, oldValue) {
-    //     const diff = [].concat(this.fields)
-    //       .filter((field) => shouldShowField(newValue, field) !== shouldShowField(oldValue, field))
-    //       //.map(field => field.name)
-    //       .reduce((result, field) => set(result, field.name, this.getValue(field.name)), {});
-        
-    //     console.log(diff)
-    //     const diffKeys = Object.keys(diff);
-
-    //     if (diffKeys.length) {
-    //       this.$emit('input', omit({ ...this.value }, diffKeys));
-    //     }
-    //   }
-    // },
     computed: {
       internalValue: {
         get() {
@@ -82,8 +67,6 @@
 
           const diffKeys = Object.keys(diff);
 
-          
-
           if (diffKeys.length) {
             if (some(diff, 'show')) {
               this.$emit('input', { ...pick(getModelFromFields(this.fields), diffKeys), ...value });
@@ -91,7 +74,6 @@
               this.$emit('input', omit({ ...value }, diffKeys));
             }  
           } else {
-            console.log(value)
             this.$emit('input', value);
           }
         }
@@ -102,7 +84,6 @@
         return get(this.internalValue, path);
       },
       onUpdate(path, value) {
-        console.log(path, value)
         this.internalValue = set({ ...this.internalValue }, path, value);
       },
       shouldShowField(field) {
