@@ -3,30 +3,32 @@
     <FormBuilder v-model="model" :fields="fields" @submit.native.prevent>
       <el-button type="primary" @click="onSubmit">Create</el-button>
     </FormBuilder>
-    {{model}}
+
+    <h1>Fields</h1>
+    <textarea v-model="jsonFields"></textarea>
+    <h1>Model</h1>
+    <pre>{{model}}</pre>
   </div>
 </template>
 
 <script>
   import FormBuilder from '~/components/FormBuilder';
   import set from 'lodash/set';
-
-  const getModelFromFields = (fields = []) => {
-    return fields.reduce((result, item) => {
-      if (item.fields) {
-        const nestedItemDefault = item.fields.reduce((r, nestedItem) => {
-          return set(r, nestedItem.name, typeof nestedItem.default !== 'undefined' ? nestedItem.default : '')
-        }, {});
-
-        return set(result, item.name, [nestedItemDefault]);
-      }
-      return set(result, item.name, typeof item.default !== 'undefined' ? item.default : '');
-    }, {});
-  }
+  import { getModelFromFields } from '~/utils/formHelper';
 
   export default {
     components: {
       FormBuilder
+    },
+    computed: {
+      jsonFields: {
+        get() {
+          return JSON.stringify(this.fields, null, 2)
+        },
+        set(value) {
+          this.fields = JSON.parse(value);
+        }
+      }
     },
     data() {
 
