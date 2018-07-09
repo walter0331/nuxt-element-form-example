@@ -4,7 +4,7 @@ module.exports = {
   */
   mode: 'spa',
   head: {
-    title: 'nuxt-lol-form',
+    title: 'nuxt-element-form-example',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
