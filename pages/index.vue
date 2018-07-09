@@ -1,15 +1,23 @@
 <template>
-  <div>
-    <FormBuilder v-model="model" :fields="fields" @submit.native.prevent>
-      <el-button type="primary" @click="onSubmit">Create</el-button>
-    </FormBuilder>
-    <hr>
-    <h1>Model</h1>
-    <pre>{{model}}</pre>
-    <hr>
-    <h1>Fields</h1>
-    <pre>{{fields}}</pre>
-  </div>
+  <el-row :gutter="20">
+    <el-col :span="12">
+      <el-card>
+        <FormBuilder v-model="model" :fields="fields" @submit.native.prevent>
+          <el-button type="primary" @click="onSubmit">Create</el-button>
+        </FormBuilder>
+      </el-card>
+    </el-col>
+    <el-col :span="12">
+      <el-card>
+        <h1>Model</h1>
+        <pre>{{model}}</pre>
+      </el-card>
+      <el-card>
+        <h1>Fields</h1>
+        <pre>{{fields}}</pre>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
