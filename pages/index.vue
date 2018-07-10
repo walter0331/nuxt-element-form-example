@@ -10,7 +10,8 @@
     <el-col :md="12">
       <el-card>
         <h1>Model</h1>
-        <el-input type="textarea" v-model="jsonModel" :prop="{ style:'height: 200px;' }"></el-input>
+        <pre>{{model}}</pre>
+        <!-- <el-input type="textarea" v-model="jsonModel"></el-input> -->
       </el-card>
       <el-card>
         <h1>Fields</h1>
