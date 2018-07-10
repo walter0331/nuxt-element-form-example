@@ -1,17 +1,12 @@
 <template>
   <el-form ref="form" :model="value" label-width="120px">
     <el-form-item v-for="(field, index) in fields" :key="index" :label="field.label || field.name" v-if="shouldShowField(field)">
-        <FormNestedFields 
-          v-if="field.fields" 
-          :value="getValue(field.name)"  
-          @update="onUpdate(field.name, $event)" 
-          v-bind="field" />
-        <FormField 
-          v-else 
-          :value="getValue(field.name)" 
-          :ui="field.ui" 
-          @update="onUpdate(field.name, $event)" 
-          v-bind="field"></FormField>    
+      <component 
+        v-if="field.fields"
+        :is="`${field.fields ? 'FormNestedFields' : 'FormField'}`" 
+        :value="getValue(field.name)"  
+        @update="onUpdate(field.name, $event)" 
+        v-bind="field" />   
     </el-form-item>
     <el-form-item>
       <slot></slot>

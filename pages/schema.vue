@@ -5,10 +5,13 @@
       <el-button type="primary" @click="onSubmit">Create</el-button>
     </SchemaBuilder>
     <pre>
-      {{model}}
+      {{previewFormFields}}
+    </pre>
+    <pre>
+      {{previewFormModel}}
     </pre>
     <h1>FORM</h1>
-    <FormBuilder :fields="model.fields" />
+    <FormBuilder :fields="previewFormFields" v-model="previewFormModel" />
   </div>
 </template>
 
@@ -61,7 +64,27 @@
                 { label: '標籤', value: 'ui-tag' },
                 { label: '多選', value: 'ui-checkbox-group' },
               ] 
-            }
+            },
+            {
+              name: 'options',
+              fields: [
+                { name: 'label', ui: 'el-input', },
+                { name: 'value', ui: 'el-input', },
+              ],
+              show: {
+                name: 'ui',
+                value: 'ui-checkbox-group'
+              }
+            },
+            { 
+              name: 'default', 
+              ui: 'el-input',
+              default: [], 
+              show: {
+                  name: 'ui',
+                  value: 'ui-checkbox-group' 
+              } 
+            },
           ]
         }
       ];
@@ -69,6 +92,14 @@
       return {
         model: getModelFromFields(fields),
         fields: fields
+      }
+    },
+    computed: {
+      previewFormFields() {
+        return this.model.fields
+      },
+      previewFormModel() {
+        return getModelFromFields(this.model.fields);
       }
     },
     methods: {

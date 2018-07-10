@@ -2,7 +2,7 @@
   <component 
     :is="ui"
     v-model="internalValue"
-    v-bind="$props">
+    v-bind="[$props, attr]">
     </component>
 </template>
 <script>

@@ -8,11 +8,12 @@
         </el-button>
       </div>
       <el-form-item v-for="(field, ii) in fields" :key="`${i}_${ii}`" :label="field.label || field.name">
-        <FormField 
+        <component 
+          :is="`${field.fields ? 'FormNestedFields' : 'FormField'}`"
           :value="internalValue[i][field.name]" 
           :ui="field.ui" 
           @update="onUpdate(`[${i}]${field.name}`, $event)" 
-          v-bind="field"></FormField>
+          v-bind="field"></component>
       </el-form-item>
     </el-card>
     <el-button type="primary" @click="onUpdate(`[${internalValue.length}]`, getDefaultValue())">Add</el-button>
@@ -25,6 +26,7 @@
   import FormField from './FormField';
 
   export default {
+    name: 'FormNestedFields',
     props: {
       value: { type: Array, default: () => [] },
       name: { type: String },
