@@ -5,13 +5,11 @@
       <el-button type="primary" @click="onSubmit">Create</el-button>
     </SchemaBuilder>
     <pre>
-      {{previewFormFields}}
+      {{model}}
     </pre>
-    <pre>
-      {{previewFormModel}}
+      <pre>
+      {{fields}}
     </pre>
-    <h1>FORM</h1>
-    <FormBuilder :fields="previewFormFields" v-model="previewFormModel" />
   </div>
 </template>
 
@@ -79,7 +77,6 @@
             { 
               name: 'default', 
               ui: 'el-input',
-              default: [], 
               show: {
                   name: 'ui',
                   value: 'ui-checkbox-group' 
@@ -92,14 +89,6 @@
       return {
         model: getModelFromFields(fields),
         fields: fields
-      }
-    },
-    computed: {
-      previewFormFields() {
-        return this.model.fields
-      },
-      previewFormModel() {
-        return getModelFromFields(this.model.fields);
       }
     },
     methods: {

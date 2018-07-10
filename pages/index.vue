@@ -10,7 +10,7 @@
     <el-col :md="12">
       <el-card>
         <h1>Model</h1>
-        <pre>{{model}}</pre>
+        <el-input type="textarea" v-model="jsonModel" :prop="{ style:'height: 200px;' }"></el-input>
       </el-card>
       <el-card>
         <h1>Fields</h1>
@@ -28,6 +28,9 @@
   export default {
     components: {
       FormBuilder
+    },
+    updated() {
+      console.log(arguments)
     },
     data() {
 
@@ -48,11 +51,70 @@
             { name: 'url', ui: 'el-input', default: '' }
           ]
         },
+        { 
+          name: 'tree', 
+          ui: 'ui-tree',
+          attr: {
+            showCheckbox: true,
+            highlightCurrent: true,
+            data: [
+              {
+                id: 1,
+                label: "Level one 1",
+                children: [{
+                  id: 4,
+                  label: "Level two 1-1",
+                  children: [{
+                    id: 9,
+                    label: "Level three 1-1-1"
+                  }, {
+                    id: 10,
+                    label: "Level three 1-1-2"
+                  }]
+                }]
+              }, {
+                id: 2,
+                label: "Level one 2",
+                children: [{
+                  id: 5,
+                  label: "Level two 2-1"
+                }, {
+                  id: 6,
+                  label: "Level two 2-2"
+                }]
+              }, {
+                id: 3,
+                label: "Level one 3",
+                children: [{
+                  id: 7,
+                  label: "Level two 3-1"
+                }, {
+                  id: 8,
+                  label: "Level two 3-2"
+                }]
+              }
+            ]
+         }
+        },
       ];
 
       return {
         model: getModelFromFields(fields),
         fields
+      }
+    },
+    computed: {
+      jsonModel: {
+        get() {
+          return JSON.stringify(this.model, null, 2);
+        },
+        set(value) {
+          try {
+            this.model = JSON.parse(value);
+          } catch (e) {
+            console.log(e);
+          }
+        }
       }
     },
     methods: {
