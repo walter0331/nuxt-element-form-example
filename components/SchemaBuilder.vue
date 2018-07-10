@@ -1,12 +1,10 @@
 <template>
   <el-form ref="form" :model="value" label-width="120px">
-    <el-form-item v-for="(field, index) in fields" :key="index" :label="field.label || field.name">
+    <div v-for="(field, index) in fields" :key="index">
       <FormNestedFields v-if="field.fields" :value="getValue(field.name)"  @update="onUpdate(field.name, $event)" v-bind="field" />
       <FormField v-else :value="getValue(field.name)" :ui="field.ui" @update="onUpdate(field.name, $event)" v-bind="field"></FormField>    
-    </el-form-item>
-    <el-form-item>
-      <slot></slot>
-    </el-form-item>
+    </div>
+    <slot></slot>
   </el-form>
 </template>
 <script>

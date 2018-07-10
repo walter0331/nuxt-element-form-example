@@ -2,7 +2,6 @@
   <el-form ref="form" :model="value" label-width="120px">
     <el-form-item v-for="(field, index) in fields" :key="index" :label="field.label || field.name" v-if="shouldShowField(field)">
       <component 
-        v-if="field.fields"
         :is="`${field.fields ? 'FormNestedFields' : 'FormField'}`" 
         :value="getValue(field.name)"  
         @update="onUpdate(field.name, $event)" 
