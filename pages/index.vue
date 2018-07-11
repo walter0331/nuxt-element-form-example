@@ -35,11 +35,12 @@
     data() {
 
       const fields = [
+        { name: 'autocomplete', ui: 'ui-autocomplete', debounce: 400, fetchSuggestions: this.onAutocompleteFetchSuggestions },
         { name: 'user.name', label: '用戶名稱', ui: 'el-input' },
         { name: 'slider.normal', ui: 'el-slider', default: 0 },
         { name: 'slider.range', ui: 'el-slider', range: true, default: [25, 75] },
         { name: 'slider.stop', ui: 'el-slider', range: true, default: [50, 75], step: 10, showStops: true },
-        { name: '選擇顏色', ui: 'el-color-picker' },
+        { name: 'color', label: '選擇顏色', ui: 'el-color-picker' },
         { name: 'user.count', label: '數量', ui: 'el-input-number', default: 3, min: 1, max: 5  },
         { name: 'user.ratings', label: '評分', ui: 'el-rate', default: 3.6,  },
         { name: 'label2', label: '性別', ui: 'ui-select', default: 'M', options: [{ label: '男生', value: 'M' }, { label: '女生', value: 'F' }], multiple: false },
@@ -112,6 +113,17 @@
     methods: {
       onSubmit() {
         console.log(this.model);
+      },
+      async onAutocompleteFetchSuggestions(search, cb) {
+        const q = search.split(',').pop();
+        
+        if (!q) {
+          cb();
+        }
+
+  
+        const { items } = await this.$axios.$get(`https://api.github.com/search/repositories?q=${q}`);
+        cb(items ? items.map(({ name }) => ({ value: name })) : []);
       },
       async fetchGithubFollowing() {
         return await this.$axios.$get('https://api.github.com/users/walter0331/following');
