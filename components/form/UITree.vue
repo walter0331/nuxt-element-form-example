@@ -1,5 +1,5 @@
 <template>
-  <el-tree ref="tree" node-key="id" v-model="internalValue" v-bind="attr" @check="onCheck"></el-tree>
+  <el-tree ref="tree" node-key="id" v-model="internalValue" v-bind="props" @check="onCheck"></el-tree>
 </template>
 
 <script>
@@ -7,7 +7,7 @@
   import difference from 'lodash/difference';
 
   export default {
-    props: ['value', 'attr'],
+    props: ['value', 'props'],
     watch: {
       value(newValue, oldValue) {
         const newCheckedKeys = get(newValue, 'checkedKeys');

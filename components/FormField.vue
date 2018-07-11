@@ -2,12 +2,12 @@
   <component 
     :is="ui"
     v-model="internalValue"
-    v-bind="[$props, attr]">
+    v-bind="[$props, props]">
     </component>
 </template>
 <script>
 export default {
-  props: ['value', 'ui', 'type', 'options', 'attr'],
+  props: ['value', 'ui', 'props'],
   computed: {
     internalValue: {
       get() {

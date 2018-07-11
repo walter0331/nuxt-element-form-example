@@ -2,7 +2,7 @@
   <div>
     <el-card v-for="(v, i) in internalValue" :key="i"  shadow="never">
       <div slot="header" class="clearfix">
-        <span>{{`${name} ${i+1}`}}</span>
+        <span>{{`${i+1}`}}</span>
         <el-button v-if="internalValue.length > 1" style="float: right; padding: 4px" type="text" @click="onRemove(i)">
           <i class="el-icon-delete"></i>
         </el-button>
@@ -13,7 +13,8 @@
           :value="internalValue[i][field.name]" 
           :ui="field.ui" 
           @update="onUpdate(`[${i}]${field.name}`, $event)" 
-          v-bind="field"></component>
+          v-bind="field">
+        </component>
       </el-form-item>
     </el-card>
     <el-button type="primary" @click="onUpdate(`[${internalValue.length}]`, getDefaultValue())">Add</el-button>

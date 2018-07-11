@@ -7,7 +7,7 @@
     :file-list="internalValue"
     :auto-upload="false"
     list-type="picture"
-    v-bind="attr">
+    v-bind="props">
     <el-button size="small" type="primary">Click to upload</el-button>
     <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
   </el-upload>
@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    props: ['value', 'attr'],
+    props: ['value', 'props'],
     computed: {
       internalValue: {
         get() {

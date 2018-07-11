@@ -26,24 +26,27 @@
   import set from 'lodash/set';
   import { getModelFromFields } from '~/utils/formHelper';
 
+  
+
   export default {
     components: {
       FormBuilder
-    },
-    updated() {
-      console.log(arguments)
     },
     data() {
 
       const fields = [
         { name: 'user.name', label: '用戶名稱', ui: 'el-input' },
-        { name: 'label2', label: '性別', ui: 'ui-select', default: [], options: [{ label: '男生', value: 'M' }, { label: '女生', value: 'F' }], attr: { multiple: false,  } },
+        { name: '選擇顏色', ui: 'el-color-picker' },
+        { name: 'user.count', label: '數量', ui: 'el-input-number', default: 3, min: 1, max: 5  },
+        { name: 'user.ratings', label: '評分', ui: 'el-rate', default: 3.6,  },
+        { name: 'label2', label: '性別', ui: 'ui-select', default: 'M', options: [{ label: '男生', value: 'M' }, { label: '女生', value: 'F' }], multiple: false },
         { name: 'label3', label: '生日', ui: 'el-date-picker', },
+        { name: 'dateTimePicker', label: '日期區間', ui: 'el-date-picker', type: 'datetimerange' },
         { name: 'label4', label: '是否有養過寵物', ui: 'el-switch', default: false },
         { name: 'label5', ui: 'ui-checkbox-group', default: [], options: [{ label: '貓', value: 'cat' }, { label: '狗', value: 'dog' }] },
         { name: 'label6', ui: 'el-input', label: '養寵物的心得', type: 'textarea', hide: { name: 'label4', value: false } },
-        { name: 'label7', ui: 'ui-upload', default: [], attr: { action: '' } },
-        { name: 'label8', ui: 'ui-radio-group', label: '顯示Tag', default: '', options: [{ label: '不使用', value: false }, { label: '使用', value: true }] },
+        { name: 'label7', ui: 'ui-upload', default: [], action: '' },
+        { name: 'label8', ui: 'ui-radio-group', label: '顯示Tag', default: '', options: [{ label: '不顯示', value: false }, { label: '顯示', value: true }] },
         { name: 'label9', ui: 'ui-tag', default: ['tag1', 'tag2'], show: { name: 'label8', value: true } },
         { 
           name: 'slider', 
@@ -52,54 +55,18 @@
             { name: 'url', ui: 'el-input', default: '' }
           ]
         },
+        { name: 'githubFollwing', ui: 'ui-tag', default: [] },
         { 
           name: 'tree', 
           ui: 'ui-tree',
-          attr: {
-            showCheckbox: true,
-            highlightCurrent: true,
-            data: [
-              {
-                id: 1,
-                label: "Level one 1",
-                children: [{
-                  id: 4,
-                  label: "Level two 1-1",
-                  children: [{
-                    id: 9,
-                    label: "Level three 1-1-1"
-                  }, {
-                    id: 10,
-                    label: "Level three 1-1-2"
-                  }]
-                }]
-              }, {
-                id: 2,
-                label: "Level one 2",
-                children: [{
-                  id: 5,
-                  label: "Level two 2-1"
-                }, {
-                  id: 6,
-                  label: "Level two 2-2"
-                }]
-              }, {
-                id: 3,
-                label: "Level one 3",
-                children: [{
-                  id: 7,
-                  label: "Level two 3-1"
-                }, {
-                  id: 8,
-                  label: "Level two 3-2"
-                }]
-              }
-            ]
-         }
+          showCheckbox: true,
+          highlightCurrent: true,
+          data: []
         },
       ];
 
       return {
+        githubFallowing: [],
         model: getModelFromFields(fields),
         fields
       }
@@ -118,9 +85,73 @@
         }
       }
     },
+    async created(){
+
+      //async data
+      const [
+        following,
+        treeData,
+      ] = [
+        await this.fetchGithubFollowing(),
+        await this.fetchTreeData(),
+      ];
+
+      //tags
+      const tags = following.map(({ login }) => login);
+      set(this.model, 'githubFollwing', tags);
+
+      //tree
+      set(this.fields.find(({ name }) => name === 'tree'), 'data', treeData);
+      set(this.model, 'tree', { checkedKeys: [8] });
+
+    },
     methods: {
       onSubmit() {
         console.log(this.model);
+      },
+      async fetchGithubFollowing() {
+        return await this.$axios.$get('https://api.github.com/users/walter0331/following');
+      },
+      async fetchTreeData() {
+        //wait for 2 seconds
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        return [
+          {
+            id: 1,
+            label: "Level one 1",
+            children: [{
+              id: 4,
+              label: "Level two 1-1",
+              children: [{
+                id: 9,
+                label: "Level three 1-1-1"
+              }, {
+                id: 10,
+                label: "Level three 1-1-2"
+              }]
+            }]
+          }, {
+            id: 2,
+            label: "Level one 2",
+            children: [{
+              id: 5,
+              label: "Level two 2-1"
+            }, {
+              id: 6,
+              label: "Level two 2-2"
+            }]
+          }, {
+            id: 3,
+            label: "Level one 3",
+            children: [{
+              id: 7,
+              label: "Level two 3-1"
+            }, {
+              id: 8,
+              label: "Level two 3-2"
+            }]
+          }
+        ];
       }
     }
   }

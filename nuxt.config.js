@@ -24,6 +24,9 @@ module.exports = {
   css: [
     'element-ui/lib/theme-chalk/index.css'
   ],
+  modules: [
+    '@nuxtjs/axios',
+  ],
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/CustomFields'

@@ -1,11 +1,11 @@
 <template>
   <el-form ref="form" :model="value" label-width="120px">
-    <el-form-item v-for="(field, index) in fields" :key="index" :label="field.label || field.name" v-if="shouldShowField(field)">
+    <el-form-item v-for="(field, index) in fields" :key="index" :label="getLabel(field)" v-if="shouldShowField(field)">
       <component 
         :is="`${field.fields ? 'FormNestedFields' : 'FormField'}`" 
         :value="getValue(field.name)"  
         @update="onUpdate(field.name, $event)" 
-        v-bind="field" />   
+        v-bind="reassignFieldProps(field)" />   
     </el-form-item>
     <el-form-item>
       <slot></slot>
@@ -76,6 +76,12 @@
     methods: {
       getValue(path) {
         return get(this.internalValue, path);
+      },
+      getLabel({ label, name}) {
+        return label || name;
+      },
+      reassignFieldProps({ fields, ui, name, show, hide, default: defaultValue, props = {}, ...rest }) {
+        return { fields, ui, name, props: { ...rest, ...props } };
       },
       onUpdate(path, value) {
         this.internalValue = set({ ...this.internalValue }, path, value);

@@ -41,7 +41,7 @@
   import uniq from 'lodash/uniq';
 
   export default {
-    props: ['value', 'attr'],
+    props: ['value', 'props'],
     computed: {
       internalValue: {
         get() {

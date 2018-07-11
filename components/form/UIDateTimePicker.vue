@@ -1,16 +1,15 @@
 <template>
-  <el-select v-model="internalValue" v-bind="props">
-    <el-option
-      v-for="option in options"
-      :key="option.value"
-      v-bind="option">
-    </el-option>
-  </el-select>
+  <el-date-picker
+    v-model="internalValue"
+    type="datetime"
+    placeholder="Select date and time"
+    default-time="12:00:00">
+  </el-date-picker>
 </template>
 
 <script>
   export default {
-    props: ['value', 'options', 'placeholder', 'props'],
+    props: ['value', 'props'],
     computed: {
       internalValue: {
         get() {
@@ -20,6 +19,9 @@
           this.$emit('input', value);
         }
       }
+    },
+    methods: {
+
     }
   }
 </script>
