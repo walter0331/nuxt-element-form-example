@@ -1,9 +1,7 @@
 <template>
   <el-date-picker
     v-model="internalValue"
-    type="datetime"
-    placeholder="Select date and time"
-    default-time="12:00:00">
+    v-bind="props">
   </el-date-picker>
 </template>
 

@@ -5,6 +5,7 @@ import UISelect from '~/components/form/UISelect';
 import UIUpload from '~/components/form/UIUpload';
 import UITag from '~/components/form/UITag';
 import UITree from '~/components/form/UITree';
+import UIDatePicker from '~/components/form/UIDatePicker';
 
 Vue.component('ui-checkbox-group', UICheckboxGroup);
 Vue.component('ui-radio-group', UIRadioGroup);
@@ -12,5 +13,6 @@ Vue.component('ui-select', UISelect);
 Vue.component('ui-upload', UIUpload);
 Vue.component('ui-tag', UITag);
 Vue.component('ui-tree', UITree);
+Vue.component('ui-date-picker', UIDatePicker);
 
 

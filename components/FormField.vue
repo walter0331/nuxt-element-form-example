@@ -17,7 +17,7 @@ export default {
         this.$emit('update', value)
       }
     }
-  }
+  },
 }
 </script>
 

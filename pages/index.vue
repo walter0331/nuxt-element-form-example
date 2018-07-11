@@ -36,12 +36,15 @@
 
       const fields = [
         { name: 'user.name', label: '用戶名稱', ui: 'el-input' },
+        { name: 'slider.normal', ui: 'el-slider', default: 0 },
+        { name: 'slider.range', ui: 'el-slider', range: true, default: [25, 75] },
+        { name: 'slider.stop', ui: 'el-slider', range: true, default: [50, 75], step: 10, showStops: true },
         { name: '選擇顏色', ui: 'el-color-picker' },
         { name: 'user.count', label: '數量', ui: 'el-input-number', default: 3, min: 1, max: 5  },
         { name: 'user.ratings', label: '評分', ui: 'el-rate', default: 3.6,  },
         { name: 'label2', label: '性別', ui: 'ui-select', default: 'M', options: [{ label: '男生', value: 'M' }, { label: '女生', value: 'F' }], multiple: false },
-        { name: 'label3', label: '生日', ui: 'el-date-picker', },
-        { name: 'dateTimePicker', label: '日期區間', ui: 'el-date-picker', type: 'datetimerange' },
+        { name: 'date', label: '生日', ui: 'el-date-picker', default: '1987-03-31', type: 'date' },
+        { name: 'datetimerange', label: '日期區間', ui: 'el-date-picker', type: 'datetimerange', default: ['1987-03-31', '1987-04-01'] },
         { name: 'label4', label: '是否有養過寵物', ui: 'el-switch', default: false },
         { name: 'label5', ui: 'ui-checkbox-group', default: [], options: [{ label: '貓', value: 'cat' }, { label: '狗', value: 'dog' }] },
         { name: 'label6', ui: 'el-input', label: '養寵物的心得', type: 'textarea', hide: { name: 'label4', value: false } },
@@ -49,7 +52,7 @@
         { name: 'label8', ui: 'ui-radio-group', label: '顯示Tag', default: '', options: [{ label: '不顯示', value: false }, { label: '顯示', value: true }] },
         { name: 'label9', ui: 'ui-tag', default: ['tag1', 'tag2'], show: { name: 'label8', value: true } },
         { 
-          name: 'slider', 
+          name: 'cards', 
           fields: [
             { name: 'title', ui: 'el-input', default: '' }, 
             { name: 'url', ui: 'el-input', default: '' }
@@ -103,6 +106,7 @@
       //tree
       set(this.fields.find(({ name }) => name === 'tree'), 'data', treeData);
       set(this.model, 'tree', { checkedKeys: [8] });
+
 
     },
     methods: {
