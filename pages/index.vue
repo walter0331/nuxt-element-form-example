@@ -120,7 +120,6 @@
         if (!q) {
           cb();
         }
-
   
         const { items } = await this.$axios.$get(`https://api.github.com/search/repositories?q=${q}`);
         cb(items ? items.map(({ name }) => ({ value: name })) : []);
