@@ -1,4 +1,8 @@
-# nuxt-lol-form
+# vue-form-builder-utils example
+https://www.npmjs.com/package/vue-form-builder-utils
+
+## Demo
+http://nuxt-element-form-example.surge.sh/
 
 > Nuxt.js project
 
