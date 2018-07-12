@@ -2,9 +2,9 @@
   <el-row :gutter="20">
     <el-col :md="12">
       <el-card>
-        <FormBuilder v-model="model" :fields="fields" @submit.native.prevent>
+        <form-builder v-model="model" :fields="fields" @submit.native.prevent>
           <el-button type="primary" @click="onSubmit">Create</el-button>
-        </FormBuilder>
+        </form-builder>
       </el-card>
     </el-col>
     <el-col :md="12">
@@ -22,16 +22,11 @@
 </template>
 
 <script>
-  import FormBuilder from '~/components/FormBuilder';
-  import set from 'lodash/set';
-  import { getModelFromFields } from '~/utils/formHelper';
 
-  
+  import { createModel } from 'vue-form-builder-utils';
+  import set from 'lodash/set';
 
   export default {
-    components: {
-      FormBuilder
-    },
     data() {
 
       const fields = [
@@ -71,7 +66,7 @@
 
       return {
         githubFallowing: [],
-        model: getModelFromFields(fields),
+        model: createModel(fields),
         fields
       }
     },
