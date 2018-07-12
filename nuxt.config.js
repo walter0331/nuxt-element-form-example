@@ -29,7 +29,7 @@ module.exports = {
   ],
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/VueFormBuilder',
+    '@/plugins/CustomFields'
   ],
   build: {
     /*
